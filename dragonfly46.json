@@ -1,0 +1,54 @@
+{
+  "builders": [
+   {
+     "type": "virtualbox-iso",
+     "guest_os_type": "FreeBSD_64",
+     "iso_url": "http://mirrors.nycbug.org/pub/DragonflyBSD/iso-images/dfly-x86_64-4.6.1_REL.iso",
+     "iso_checksum": "76d0645df3c933275722f45c21e4d5cf",
+     "iso_checksum_type": "md5",
+     "boot_command": [
+        "1",
+        "<wait10><wait10><wait10>",
+        "installer<enter>",
+        "<wait5>",
+	"<enter><enter><wait><enter><enter><enter><wait><enter>",
+	"<enter><down><down><down><down><down><enter><enter><wait10><wait10><wait10><wait10>",
+	"<enter><wait10><wait10><wait10><wait10><wait5>",
+	"<down><enter><wait><enter>",
+	"<enter><wait>",
+	"<down><down><down><enter>vagrant<down>vagrant<down><enter><enter>",
+        "<down><down><down><down><enter>vagrant<down>Vagrant User<down>vagrant<down>vagrant",
+	"<down><down><down><down><down><down><left><enter><enter>",
+	"<down><down><down><down><down><enter><wait><enter><enter><wait5><enter>",
+	"<down><down><down><down><down><down><down><down><down><down><enter><wait>",
+	"<down><right><enter><wait5>root<enter><wait>",
+	"mount /dev/ad0s1d /mnt<enter>",
+	"sed -i -e 's/^PermitRootLogin without-password/PermitRootLogin yes/' /mnt/etc/ssh/sshd_config<enter>",
+	"sed -i -e 's/^PasswordAuthentication no/PasswordAuthentication yes/' /mnt/etc/ssh/sshd_config<enter>",
+	"reboot<enter>"
+
+     ],
+     "boot_wait": "5s",
+     "ssh_username": "root",
+     "ssh_password": "vagrant",
+     "keep_registered": true
+   }
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "chmod +x {{ .Path }}; env {{ .Vars }} {{ .Path }}",
+      "scripts": [
+	"scripts/vagrant-insecurekey.sh"
+      ]
+    }
+  ],
+
+ "post-processors": [
+    {
+      "type": "vagrant"
+    }
+  ]
+
+}

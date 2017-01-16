@@ -1,7 +1,7 @@
 #!/bin/sh -ux
 
 VAGRANT_HOME=/home/vagrant
-VAGRANT_PUBKEY="https://github.com/mitchellh/vagrant/blob/master/keys/vagrant.pub"
+VAGRANT_PUBKEY="https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub"
 
 mkdir "${VAGRANT_HOME}/.ssh"
 chmod 0700 "${VAGRANT_HOME}/.ssh"

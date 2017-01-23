@@ -31,7 +31,7 @@
      "boot_wait": "5s",
      "ssh_username": "root",
      "ssh_password": "vagrant",
-     "keep_registered": true
+     "shutdown_command": "shutdown -p now"
    }
   ],
 
@@ -40,14 +40,20 @@
       "type": "shell",
       "execute_command": "chmod +x {{ .Path }}; env {{ .Vars }} {{ .Path }}",
       "scripts": [
-	"scripts/vagrant-insecurekey.sh"
+        "scripts/dfly/fixuphdd.sh",
+        "scripts/dfly/bootdelay.sh",
+        "scripts/dfly/vagrantuser.sh",
+        "scripts/vagrant-insecurekey.sh",
+        "scripts/dfly/rsync.sh"
       ]
     }
   ],
 
  "post-processors": [
     {
-      "type": "vagrant"
+      "type": "vagrant",
+      "output":  "boxes/dragonfly46-hammer-{{.Provider}}.box",
+      "vagrantfile_template": "templates/shared-folder.template"
     }
   ]
 

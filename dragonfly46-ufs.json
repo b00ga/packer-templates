@@ -43,7 +43,8 @@
 	"scripts/dfly/fixuphdd.sh",
 	"scripts/dfly/bootdelay.sh",
 	"scripts/dfly/vagrantuser.sh",
-	"scripts/vagrant-insecurekey.sh"
+	"scripts/vagrant-insecurekey.sh",
+	"scripts/dfly/rsync.sh"
       ]
     }
   ],
@@ -51,6 +52,7 @@
  "post-processors": [
     {
       "type": "vagrant",
+      "output":  "boxes/dragonfly46-ufs-{{.Provider}}.box",
       "vagrantfile_template": "templates/shared-folder.template"
     }
   ]

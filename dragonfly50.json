@@ -32,7 +32,10 @@
      "boot_wait": "5s",
      "ssh_username": "root",
      "ssh_password": "vagrant",
-     "shutdown_command": "shutdown -p now"
+     "shutdown_command": "shutdown -p now",
+     "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "1024"]
+     ]
    }
   ],
 

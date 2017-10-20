@@ -1,0 +1,61 @@
+{
+  "builders": [
+   {
+     "type": "virtualbox-iso",
+     "guest_os_type": "FreeBSD_64",
+     "iso_url": "http://mirrors.nycbug.org/pub/DragonflyBSD/iso-images/dfly-x86_64-5.0.0_REL.iso",
+     "iso_checksum": "599d5e151c0315c1112f7585a8265faf",
+     "iso_checksum_type": "md5",
+     "boot_command": [
+        "1",
+        "<wait10><wait10><wait10>",
+        "installer<enter>",
+        "<wait5>",
+	"<enter><enter><wait5><right><enter><wait><enter>i<wait><enter><wait><enter><wait5><enter><wait>",
+	"<enter><down><down><down><down><down><enter><enter>",
+        "<wait10><wait10><wait10>",
+	"<enter><wait10><wait10><wait10><wait10><wait10>",
+	"<down><enter><wait><enter><wait5><enter><wait5>",
+	"<down><down><down><enter>vagrant<down>vagrant<down><enter><enter>",
+        "<down><down><down><down><enter>vagrant<down>Vagrant User<down>vagrant<down>vagrant",
+	"<down><down><down><down><down><down><left><enter><enter>",
+	"<down><down><down><down><down><enter><wait><enter><enter><wait5><enter>",
+        "<down><down><down><down><down><down><enter>dragonfly50<down><down><left><enter>",
+	"<down><down><down><down><down><down><down><down><down><down><enter><wait>",
+	"<down><right><enter><wait5>root<enter><wait>",
+	"mount /dev/ad0s1d /mnt<enter>",
+	"sed -i -e 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /mnt/etc/ssh/sshd_config<enter>",
+	"sed -i -e 's/^PasswordAuthentication no/PasswordAuthentication yes/' /mnt/etc/ssh/sshd_config<enter>",
+	"reboot<enter>"
+
+     ],
+     "boot_wait": "5s",
+     "ssh_username": "root",
+     "ssh_password": "vagrant",
+     "shutdown_command": "shutdown -p now"
+   }
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "chmod +x {{ .Path }}; env {{ .Vars }} {{ .Path }}",
+      "scripts": [
+        "scripts/dfly/fixuphdd.sh",
+        "scripts/dfly/bootdelay.sh",
+        "scripts/dfly/vagrantuser.sh",
+        "scripts/vagrant-insecurekey.sh",
+        "scripts/dfly/rsync.sh"
+      ]
+    }
+  ],
+
+ "post-processors": [
+    {
+      "type": "vagrant",
+      "output":  "boxes/dragonfly50-{{.Provider}}.box",
+      "vagrantfile_template": "templates/shared-folder.template"
+    }
+  ]
+
+}

@@ -11,7 +11,7 @@
         "<wait10><wait10><wait10>",
         "installer<enter>",
         "<wait5>",
-	"<enter><wait><enter><wait><right><enter><wait><enter>i<wait><enter><wait><enter><wait><enter><wait>",
+        "<enter><enter><wait5><right><enter><wait><enter>i<wait><enter><wait><enter><wait5><enter><wait>",
 	"<enter><down><down><down><down><down><enter><enter>",
         "<wait10><wait10><wait10>",
 	"<enter><wait10><wait10><wait10><wait10><wait10>",
@@ -45,6 +45,7 @@
         "scripts/dfly/bootdelay.sh",
         "scripts/dfly/vagrantuser.sh",
         "scripts/vagrant-insecurekey.sh",
+        "scripts/mkdirvagrant.sh",
         "scripts/dfly/rsync.sh"
       ]
     }

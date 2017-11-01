@@ -48,6 +48,7 @@
         "scripts/dfly/bootdelay.sh",
         "scripts/dfly/vagrantuser.sh",
         "scripts/vagrant-insecurekey.sh",
+        "scripts/mkdirvagrant.sh",
         "scripts/dfly/rsync.sh"
       ]
     }
